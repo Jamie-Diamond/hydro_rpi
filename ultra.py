@@ -1,3 +1,4 @@
+import matplotlib.pyplot as plt
 import RPi.GPIO as GPIO                    #Import GPIO library
 import time                                #Import time library
 GPIO.setmode(GPIO.BCM)                     #Set GPIO pin numbering
@@ -9,6 +10,8 @@ print "Distance measurement in progress"
 
 GPIO.setup(TRIG,GPIO.OUT)                  #Set pin as GPIO out
 GPIO.setup(ECHO,GPIO.IN)                   #Set pin as GPIO in
+
+D = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 
 while True:
 
@@ -34,3 +37,9 @@ while True:
     print "Distance:",distance ,"cm"  #Print distance with 0.5 cm calibration
   else:
     print "Out Of Range"                   #display out of range
+
+  D.pop(0)
+  D.append(distance)
+  plt.cla()
+  plt.plot(D)
+
