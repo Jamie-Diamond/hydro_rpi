@@ -13,8 +13,7 @@ GPIO.setup(ECHO,GPIO.IN)                   #Set pin as GPIO in
 while True:
 
   GPIO.output(TRIG, False)                 #Set TRIG as LOW
-  print "Waitng For Sensor To Settle"
-  time.sleep(2)                            #Delay of 2 seconds
+  time.sleep(0.1)                            #Delay of 2 seconds
 
   GPIO.output(TRIG, True)                  #Set TRIG as HIGH
   time.sleep(0.00001)                      #Delay of 0.00001 seconds
@@ -32,6 +31,6 @@ while True:
   distance = round(distance, 2)            #Round to two decimal points
 
   if distance > 2 and distance < 400:      #Check whether the distance is within range
-    print "Distance:",distance - 0.5,"cm"  #Print distance with 0.5 cm calibration
+    print "Distance:",distance ,"cm"  #Print distance with 0.5 cm calibration
   else:
     print "Out Of Range"                   #display out of range
