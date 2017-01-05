@@ -26,7 +26,7 @@ print('Accelerometer ID:   0x{0:02X}'.format(accel))
 print('Magnetometer ID:    0x{0:02X}'.format(mag))
 print('Gyroscope ID:       0x{0:02X}\n'.format(gyro))
 sys, gyro, accel, mag = bno.get_calibration_status()
-print('Sys_cal={1} Gyro_cal={2} Accel_cal={3} Mag_cal={4}'.format(
+print('Sys_cal={0} Gyro_cal={1} Accel_cal={2} Mag_cal={3}'.format(
           sys, gyro, accel, mag))
 
 def read_euler():

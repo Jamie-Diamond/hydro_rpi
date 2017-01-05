@@ -4,18 +4,21 @@ import time
 
 data = []
 n_data = 0
-while n_data < 100:
-    timestamp = int(time.time())
+
+print('Recording Data')
+
+while n_data < 300:
+    timestamp = time.time()
     dist = get_distance()
     heading, roll, pitch = read_euler()
     temp = read_temp()
     Gx, Gy, Gz = read_gyro()
     Ax, Ay, Az = read_accel()
-    data.append({'Distance':dist, 'Heading':heading, 'Roll':roll, 'Pitch':pitch, 'Temp':temp, 'Gyro':[Gx, Gy, Gz], 'Accel':[Ax, Ay, Az]})
+    data.append({'Time':timestamp, 'Distance':dist, 'Heading':heading, 'Roll':roll, 'Pitch':pitch, 'Temp':temp, 'Gyro':[Gx, Gy, Gz], 'Accel':[Ax, Ay, Az]})
     n_data += 1
+  
 
-
-print('# data points={1}\n '.format(
+print('# data points={0}\n '.format(
           n_data))
 
 
