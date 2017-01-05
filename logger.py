@@ -48,6 +48,7 @@ try:
     print('Data Saved')
 
 except KeyboardInterrupt:
+        toc = time.time()
         print('N_data:{0}, {1}s of data at {2}Hz, last {3}s of data lost'.format(n_data, toc-tic, n_data/(toc-tic),toc-save))
 finally:   
     GPIO.cleanup()
