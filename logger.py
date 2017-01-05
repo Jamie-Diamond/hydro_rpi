@@ -1,5 +1,4 @@
 import RPi.GPIO as GPIO
-GPIO.cleanup()
 from IMU import read_euler, read_temp, read_gyro, read_accel
 from ultra import get_distance
 import time
@@ -19,7 +18,7 @@ since_save = 0
 print('Recording Data')
 
 duration = 10000
-save_interval = 60
+save_interval = 10
 tic = time.time()
 toc = time.time()
 save = time.time()
@@ -39,6 +38,7 @@ try:
             save = time.time()
             data_save(data)
             print('Data Saved at {0}'.format(toc-tic))
+        time.sleep(0.06)
 
 
     print('# data points={0} \n Gathered over {1}s \n Frequency: {2}Hz'.format(
@@ -48,6 +48,6 @@ try:
     print('Data Saved')
 
 except KeyboardInterrupt:
-        print('N_data:{0}, {1}s of data, last {2}s of data lost'.format(n_data, toc-tic, toc-save))
+        print('N_data:{0}, {1}s of data at {2}Hz, last {3}s of data lost'.format(n_data, toc-tic, n_data/(toc-tic),toc-save))
 finally:   
     GPIO.cleanup()
