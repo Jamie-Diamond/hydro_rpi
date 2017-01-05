@@ -3,7 +3,7 @@ import time
 
 from Adafruit_BNO055 import BNO055
 
-bno = BNO055.BNO055(serial_port='/dev/serial0', rst=18)
+bno = BNO055.BNO055(rst=18)
 
 # Initialize the BNO055 and stop if something went wrong.
 if not bno.begin():
