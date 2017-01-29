@@ -9,7 +9,6 @@ Distance.write('metadata:____________\n')
 Heading = open('Heading.txt', 'a')
 Heading.write('metadata:____________\n')
 
-
 Roll = open('Roll.txt', 'a')
 Roll.write('metadata:____________\n')
 
@@ -24,7 +23,6 @@ Gyro.write('metadata:____________\n')
 
 Accel = open('Accel.txt', 'a')
 Accel.write('metadata:____________\n')
-
 
 data = []
 n_data = 0
@@ -41,29 +39,29 @@ try:
     while toc-tic < duration:
         timestamp = time.time()
         dist = get_distance()
-        temp = '[', str(timestamp), ', ', str(dist), ']\n'
+        temp = '[' + str(timestamp) + ', ' + str(dist) + ']\n'
         Distance.write(temp)
 
         heading, roll, pitch = read_euler()
-        temp = '[', str(timestamp), ', ', str(heading), ']\n'
+        temp = '[' + str(timestamp) + ', ' + str(heading) + ']\n'
         Heading.write(temp)
 
-        temp = '[', str(timestamp), ', ', str(roll), ']\n'
+        temp = '[' + str(timestamp) + ', ' + str(roll) + ']\n'
         Roll.write(temp)
 
-        temp = '[', str(timestamp), ', ', str(pitch), ']\n'
+        temp = '[' + str(timestamp) + ', ' + str(pitch) + ']\n'
         Pitch.write(temp)
 
         temperature = read_temp()
-        temp = '[', str(timestamp), ', ', str(temperature), ']\n'
+        temp = '[' + str(timestamp) + ', ' + str(temperature) + ']\n'
         Temp.write(temp)
 
         Gx, Gy, Gz = read_gyro()
-        temp = '[', str(timestamp), ', ', '[', str(Gx), ', ', str(Gy), ', ', str(Gz), ']', ']\n'
+        temp = '[' + str(timestamp) + ', ' + '[' + str(Gx) + ', ' + str(Gy) + ', ' + str(Gz) + ']' + ']\n'
         Gyro.write(temp)
 
         Ax, Ay, Az = read_accel()
-        temp = '[', str(timestamp), ', ', '[', str(Ax), ', ', str(Ay), ', ', str(Az), ']', ']\n'
+        temp = '[' + str(timestamp) + ', ' + '[' + str(Ax) + ', ' + str(Ay) + ', ' + str(Az) + ']' + ']\n'
         Accel.write(temp)
 
         n_data += 1
@@ -72,7 +70,6 @@ try:
             update = time.time()
             print('Time: {0}    Data points: {1}'.format(timestamp, toc-tic))
         time.sleep(0.06)
-
 
     print('# data points={0} \n Gathered over {1}s \n Frequency: {2}Hz'.format(
               n_data, toc-tic, n_data/(toc-tic)))
@@ -90,4 +87,3 @@ finally:
     Temp.close()
     Gyro.close()
     Accel.close()
-
