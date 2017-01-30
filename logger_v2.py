@@ -6,20 +6,10 @@ import time
 import signal
 
 def handler(signum, frame):
-    raise TimeoutError
+    raise RuntimeError
 
 # Register the signal function handler
 signal.signal(signal.SIGALRM, handler)
-
-
-# Define a timeout for your function
-signal.alarm(2)
-try:
-    loop_forever()
-except TimeoutError:
-    print('TimeoutError')
-signal.alarm(2)
-
 
 
 
@@ -61,70 +51,70 @@ try:
         signal.alarm(1)
         try:
             dist = get_distance()
-        except TimeoutError:
+        except RuntimeError:
             print('Distance Read - TimeoutError')
         signal.alarm(1)
         try:
             temp = '[' + str(timestamp) + ', ' + str(dist) + ']\n'
             Distance.write(temp)
-        except TimeoutError:
+        except RuntimeError:
             print('Distance Write - TimeoutError')
         signal.alarm(1)
         try:
             print('h+r+p')
             heading, roll, pitch = read_euler()
-        except TimeoutError:
+        except RuntimeError:
             print('read_euler - TimeoutError')
         signal.alarm(1)
         try:
             temp = '[' + str(timestamp) + ', ' + str(heading) + ']\n'
             Heading.write(temp)
-        except TimeoutError:
+        except RuntimeError:
             print('Heading Write - TimeoutError')
         signal.alarm(1)
         try:
             temp = '[' + str(timestamp) + ', ' + str(roll) + ']\n'
             Roll.write(temp)
-        except TimeoutError:
+        except RuntimeError:
             print('Roll Write - TimeoutError')
         signal.alarm(1)
         try:
             temp = '[' + str(timestamp) + ', ' + str(pitch) + ']\n'
             Pitch.write(temp)
-        except TimeoutError:
+        except RuntimeError:
             print('Pitch Write - TimeoutError')
         signal.alarm(1)
         try:
             temperature = read_temp()
-        except TimeoutError:
+        except RuntimeError:
             print('read_temp - TimeoutError')
         signal.alarm(1)
         try:
             temp = '[' + str(timestamp) + ', ' + str(temperature) + ']\n'
             Temp.write(temp)
-        except TimeoutError:
+        except RuntimeError:
             print('Temp Write - TimeoutError')
         signal.alarm(1)
         try:
             Gx, Gy, Gz = read_gyro()
-        except TimeoutError:
+        except RuntimeError:
             print('read_gyro - TimeoutError')
         signal.alarm(1)
         try:
             temp = '[' + str(timestamp) + ', ' + '[' + str(Gx) + ', ' + str(Gy) + ', ' + str(Gz) + ']' + ']\n'
             Gyro.write(temp)
-        except TimeoutError:
+        except RuntimeError:
             print('Gyro Write - TimeoutError')
         signal.alarm(1)
         try:
             Ax, Ay, Az = read_accel()
-        except TimeoutError:
+        except RuntimeError:
             print('read_accel - TimeoutError')
         signal.alarm(1)
         try:
             temp = '[' + str(timestamp) + ', ' + '[' + str(Ax) + ', ' + str(Ay) + ', ' + str(Az) + ']' + ']\n'
             Accel.write(temp)
-        except TimeoutError:
+        except RuntimeError:
             print('Accel Write - TimeoutError')
         signal.alarm(0)
         print('finished' + str(timestamp))
