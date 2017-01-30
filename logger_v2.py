@@ -3,6 +3,26 @@ from IMU import read_euler, read_temp, read_gyro, read_accel
 from ultra import get_distance
 import time
 
+import signal
+
+def handler(signum, frame):
+    raise TimeoutError
+
+# Register the signal function handler
+signal.signal(signal.SIGALRM, handler)
+
+
+# Define a timeout for your function
+signal.alarm(2)
+try:
+    loop_forever()
+except TimeoutError:
+    print('TimeoutError')
+signal.alarm(2)
+
+
+
+
 Distance = open('Distance.txt', 'a')
 Distance.write('metadata:____________\n')
 
@@ -30,7 +50,7 @@ since_save = 0
 print('Recording Data')
 
 duration = 100000000
-Update_interval = 10000000
+Update_interval = 60
 tic = time.time()
 toc = time.time()
 update = time.time()
@@ -38,30 +58,75 @@ update = time.time()
 try:
     while toc-tic < duration:
         timestamp = time.time()
-        print('d')
-        dist = get_distance()
-        temp = '[' + str(timestamp) + ', ' + str(dist) + ']\n'
-        Distance.write(temp)
-        print('h+r+p')
-        heading, roll, pitch = read_euler()
-        temp = '[' + str(timestamp) + ', ' + str(heading) + ']\n'
-        Heading.write(temp)
-        temp = '[' + str(timestamp) + ', ' + str(roll) + ']\n'
-        Roll.write(temp)
-        temp = '[' + str(timestamp) + ', ' + str(pitch) + ']\n'
-        Pitch.write(temp)
-        print('t')
-        temperature = read_temp()
-        temp = '[' + str(timestamp) + ', ' + str(temperature) + ']\n'
-        Temp.write(temp)
-        print('g')
-        Gx, Gy, Gz = read_gyro()
-        temp = '[' + str(timestamp) + ', ' + '[' + str(Gx) + ', ' + str(Gy) + ', ' + str(Gz) + ']' + ']\n'
-        Gyro.write(temp)
-        print('a')
-        Ax, Ay, Az = read_accel()
-        temp = '[' + str(timestamp) + ', ' + '[' + str(Ax) + ', ' + str(Ay) + ', ' + str(Az) + ']' + ']\n'
-        Accel.write(temp)
+        signal.alarm(1)
+        try:
+            dist = get_distance()
+        except TimeoutError:
+            print('Distance Read - TimeoutError')
+        signal.alarm(1)
+        try:
+            temp = '[' + str(timestamp) + ', ' + str(dist) + ']\n'
+            Distance.write(temp)
+        except TimeoutError:
+            print('Distance Write - TimeoutError')
+        signal.alarm(1)
+        try:
+            print('h+r+p')
+            heading, roll, pitch = read_euler()
+        except TimeoutError:
+            print('read_euler - TimeoutError')
+        signal.alarm(1)
+        try:
+            temp = '[' + str(timestamp) + ', ' + str(heading) + ']\n'
+            Heading.write(temp)
+        except TimeoutError:
+            print('Heading Write - TimeoutError')
+        signal.alarm(1)
+        try:
+            temp = '[' + str(timestamp) + ', ' + str(roll) + ']\n'
+            Roll.write(temp)
+        except TimeoutError:
+            print('Roll Write - TimeoutError')
+        signal.alarm(1)
+        try:
+            temp = '[' + str(timestamp) + ', ' + str(pitch) + ']\n'
+            Pitch.write(temp)
+        except TimeoutError:
+            print('Pitch Write - TimeoutError')
+        signal.alarm(1)
+        try:
+            temperature = read_temp()
+        except TimeoutError:
+            print('read_temp - TimeoutError')
+        signal.alarm(1)
+        try:
+            temp = '[' + str(timestamp) + ', ' + str(temperature) + ']\n'
+            Temp.write(temp)
+        except TimeoutError:
+            print('Temp Write - TimeoutError')
+        signal.alarm(1)
+        try:
+            Gx, Gy, Gz = read_gyro()
+        except TimeoutError:
+            print('read_gyro - TimeoutError')
+        signal.alarm(1)
+        try:
+            temp = '[' + str(timestamp) + ', ' + '[' + str(Gx) + ', ' + str(Gy) + ', ' + str(Gz) + ']' + ']\n'
+            Gyro.write(temp)
+        except TimeoutError:
+            print('Gyro Write - TimeoutError')
+        signal.alarm(1)
+        try:
+            Ax, Ay, Az = read_accel()
+        except TimeoutError:
+            print('read_accel - TimeoutError')
+        signal.alarm(1)
+        try:
+            temp = '[' + str(timestamp) + ', ' + '[' + str(Ax) + ', ' + str(Ay) + ', ' + str(Az) + ']' + ']\n'
+            Accel.write(temp)
+        except TimeoutError:
+            print('Accel Write - TimeoutError')
+        signal.alarm(0)
         print('finished' + str(timestamp))
         n_data += 1
         toc = time.time()
