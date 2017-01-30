@@ -61,7 +61,6 @@ try:
             print('Distance Write - TimeoutError')
         signal.alarm(1)
         try:
-            print('h+r+p')
             heading, roll, pitch = read_euler()
         except RuntimeError:
             print('read_euler - TimeoutError')
@@ -117,7 +116,6 @@ try:
         except RuntimeError:
             print('Accel Write - TimeoutError')
         signal.alarm(0)
-        print('finished' + str(timestamp))
         n_data += 1
         toc = time.time()
         if toc - update > Update_interval:
