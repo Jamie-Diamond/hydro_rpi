@@ -29,8 +29,8 @@ n_data = 0
 since_save = 0
 print('Recording Data')
 
-duration = 10000
-Update_interval = 10
+duration = 100000000
+Update_interval = 10000000
 tic = time.time()
 toc = time.time()
 update = time.time()
@@ -38,32 +38,31 @@ update = time.time()
 try:
     while toc-tic < duration:
         timestamp = time.time()
+        print('d')
         dist = get_distance()
         temp = '[' + str(timestamp) + ', ' + str(dist) + ']\n'
         Distance.write(temp)
-
+        print('h+r+p')
         heading, roll, pitch = read_euler()
         temp = '[' + str(timestamp) + ', ' + str(heading) + ']\n'
         Heading.write(temp)
-
         temp = '[' + str(timestamp) + ', ' + str(roll) + ']\n'
         Roll.write(temp)
-
         temp = '[' + str(timestamp) + ', ' + str(pitch) + ']\n'
         Pitch.write(temp)
-
+        print('t')
         temperature = read_temp()
         temp = '[' + str(timestamp) + ', ' + str(temperature) + ']\n'
         Temp.write(temp)
-
+        print('g')
         Gx, Gy, Gz = read_gyro()
         temp = '[' + str(timestamp) + ', ' + '[' + str(Gx) + ', ' + str(Gy) + ', ' + str(Gz) + ']' + ']\n'
         Gyro.write(temp)
-
+        print('a')
         Ax, Ay, Az = read_accel()
         temp = '[' + str(timestamp) + ', ' + '[' + str(Ax) + ', ' + str(Ay) + ', ' + str(Az) + ']' + ']\n'
         Accel.write(temp)
-
+        print('finished' + str(timestamp))
         n_data += 1
         toc = time.time()
         if toc - update > Update_interval:
