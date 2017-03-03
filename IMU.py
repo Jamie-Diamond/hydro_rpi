@@ -45,3 +45,7 @@ def read_gyro():
 def read_accel():
     x,y,z = bno.read_accelerometer()
     return x, y, z
+
+def get_cal():
+    sys_cal, gyro_cal, accel_cal, mag_cal = bno.get_calibration_status()
+    return sys_cal, gyro_cal, accel_cal, mag_cal

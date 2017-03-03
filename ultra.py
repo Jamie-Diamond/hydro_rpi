@@ -11,8 +11,10 @@ GPIO.setup(TRIG,GPIO.OUT)                  #Set pin as GPIO out
 GPIO.setup(ECHO,GPIO.IN)                   #Set pin as GPIO in
 
 def get_distance():
+  pulse_end = 1
+  pulse_start = 2
   GPIO.output(TRIG, False)  # Set TRIG as LOW
-  time.sleep(0.01)
+  time.sleep(0.1)
   GPIO.output(TRIG, True)  # Set TRIG as HIGH
   time.sleep(0.00001)  # Delay of 0.00001 seconds
   GPIO.output(TRIG, False)
