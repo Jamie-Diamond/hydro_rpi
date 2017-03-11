@@ -3,8 +3,8 @@ import RPi.GPIO as GPIO                    #Import GPIO library
 import time                                #Import time library
 GPIO.setmode(GPIO.BCM)                     #Set GPIO pin numbering
 
-TRIG = 23                                  #Associate pin 23 to TRIG
-ECHO = 24                                  #Associate pin 24 to ECHO
+TRIG = 20                                  #Associate pin 23 to TRIG
+ECHO = 21                                  #Associate pin 24 to ECHO
 
 
 GPIO.setup(TRIG,GPIO.OUT)                  #Set pin as GPIO out
@@ -65,3 +65,4 @@ def example():
     plt.plot(D)
     plt.pause(0.000000000001)
 
+print(get_distance())

@@ -30,6 +30,7 @@ update = time.time()
 try:
     while toc-tic < duration:
         timestamp = time.time()
+        n_data = n_data + 1
         signal.alarm(1)
         try:
             dist = get_distance()
@@ -42,6 +43,7 @@ try:
         except RuntimeError:
             print('Distance Write - TimeoutError')
         signal.alarm(1)
+        
         if toc - update > Update_interval:
             update = time.time()
             print('Time: {0}    Data points: {1}'.format(timestamp, toc-tic))
